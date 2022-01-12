@@ -4,18 +4,47 @@ import arcpy
 class CreateLRSEventsFromStreetLevelImagery(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
-        self.label = "CreateLRSEventsFromStreetLevelImagery"
-        self.description = ""
-        self.canRunInBackground = False
+        self.label = "Create LRS Events From Street Level Imagery"
+        self.description = "Python Geoprocessing Tool that converts street level imagery attached to point features " \
+                           "into LRS schema event features."
+        self.canRunInBackground = True
 
     def getParameterInfo(self):
-        """Define parameter definitions"""
-        params = None
+        input_deep_learning_model_param = arcpy.Parameter(
+            displayName="Input Deep Learning Model",
+            name="in_deep_learning_model",
+            datatype="DEFile",
+            parameterType="Required",
+            direction="Input"
+        )
+
+        input_lrs_network_param = arcpy.Parameter(
+            displayName="Input LRS Network",
+            name="in_lrs_network",
+            datatype="DEFeatureClass",
+            parameterType="Required",
+            direction="Input"
+        )
+
+        input_point_features_param = arcpy.Parameter(
+            displayName="Input Point Features",
+            name="in_point_features",
+            datatype="DEFeatureClass",
+            parameterType="Required",
+            direction="Input"
+        )
+
+        params = [input_deep_learning_model_param, input_lrs_network_param, input_point_features_param]
         return params
 
     def isLicensed(self):
-        """Set whether tool is licensed to execute."""
-        return True
+        lr_license = arcpy.CheckExtension("LocationReferencing")
+        ia_license = arcpy.CheckExtension("ImageAnalyst")
+
+        if lr_license is not '' and ia_license is not '':
+            return True
+
+        return False
 
     def updateParameters(self, parameters):
         """Modify the values and properties of parameters before internal
