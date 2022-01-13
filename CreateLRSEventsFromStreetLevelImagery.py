@@ -5,7 +5,7 @@ class CreateLRSEventsFromStreetLevelImagery(object):
     def __init__(self):
         """Define the tool (tool name is the name of the class)."""
         self.label = "Create LRS Events From Street Level Imagery"
-        self.description = "Python Geoprocessing Tool that converts street level imagery attached to point features " \
+        self.description = "Python geoprocessing tool that converts street level imagery attached to point features " \
                            "into LRS schema event features."
         self.canRunInBackground = True
 
@@ -41,7 +41,7 @@ class CreateLRSEventsFromStreetLevelImagery(object):
         lr_license = arcpy.CheckExtension("LocationReferencing")
         ia_license = arcpy.CheckExtension("ImageAnalyst")
 
-        if lr_license is not '' and ia_license is not '':
+        if lr_license is 'Available' and ia_license is 'Available':
             return True
 
         return False
