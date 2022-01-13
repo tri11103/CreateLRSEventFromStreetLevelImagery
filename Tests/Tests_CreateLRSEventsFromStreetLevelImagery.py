@@ -1,0 +1,23 @@
+import pytest
+import arcpy
+
+def test_CreateLRSEventsFromStreetLevelImagery_IncorrectPathToDeepLearningModel_AssertToolFails():
+    return
+
+def test_CreateLRSEventsFromStreetLevelImagery_InputLRSNetworkValueIsNotLRSSchemaNetwork_AssertToolFails():
+    return
+
+def test_CreateLRSEventsFromStreetLevelImagery_InputPointFeaturesIsNotAPointFC_AssertToolFails():
+    return
+
+def test_CreateLRSEventsFromStreetLevelImagery_InputPointFeaturesHasNoFieldContainingRasterData_AssertToolFails():
+    return
+
+def test_CreateLRSEventsFromStreetLevelImagery_DeepLearningModelDoesNotOutputAClassLabel_AssertToolFails():
+    return
+
+def test_CreateLRSEventsFromStreetLevelImagery_LRLicenseNotAvailable_AssertToolFails():
+    return
+
+def test_CreateLRSEventsFromStreetLevelImagery_IALicenseNotAvailable_AssertToolFails():
+    return
