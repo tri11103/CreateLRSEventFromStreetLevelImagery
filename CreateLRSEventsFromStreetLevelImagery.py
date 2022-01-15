@@ -18,6 +18,14 @@ class CreateLRSEventsFromStreetLevelImagery(object):
             direction="Input"
         )
 
+        input_class_names_param = arcpy.Parameter(
+            displayName="Input Class Names",
+            name="in_class_names",
+            datatype="GPValueTable",
+            parameterType="Required",
+            direction="Input"
+        )
+
         input_lrs_network_param = arcpy.Parameter(
             displayName="Input LRS Network",
             name="in_lrs_network",
@@ -34,8 +42,13 @@ class CreateLRSEventsFromStreetLevelImagery(object):
             direction="Input"
         )
 
-        params = [input_deep_learning_model_param, input_lrs_network_param, input_point_features_param]
+        input_class_names_param.columns = [["Field"]]
+
+        params = [input_deep_learning_model_param, input_class_names_param, input_lrs_network_param,
+                  input_point_features_param]
+
         return params
+
 
     def isLicensed(self):
         lr_license = arcpy.CheckExtension("LocationReferencing")

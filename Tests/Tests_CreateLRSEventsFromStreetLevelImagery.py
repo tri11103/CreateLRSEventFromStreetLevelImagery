@@ -1,6 +1,10 @@
 import pytest
 import arcpy
 
+
+def test_CreateLRSEventsFromStreetLevelImagery_InputClassNamesContainsClassNotFoundInMLOutput_AssertToolFails():
+    return
+
 def test_CreateLRSEventsFromStreetLevelImagery_IncorrectPathToDeepLearningModel_AssertToolFails():
     return
 
