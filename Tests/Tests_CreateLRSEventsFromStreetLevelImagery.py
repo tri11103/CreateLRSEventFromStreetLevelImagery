@@ -2,6 +2,9 @@ import pytest
 import arcpy
 
 
+def test_CreateLRSEventsFromStreetLevelImagery_InputRasterFieldNotInPointFeatures_AssertToolFails():
+    return
+
 def test_CreateLRSEventsFromStreetLevelImagery_InputClassNamesContainsClassNotFoundInMLOutput_AssertToolFails():
     return
 

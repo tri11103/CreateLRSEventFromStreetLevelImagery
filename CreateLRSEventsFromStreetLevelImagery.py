@@ -42,10 +42,18 @@ class CreateLRSEventsFromStreetLevelImagery(object):
             direction="Input"
         )
 
+        input_raster_field_param = arcpy.Parameter(
+            displayName="Input Raster Field",
+            name="in_raster_field",
+            datatype="GPString",
+            parameterType="Required",
+            direction="Input"
+        )
+
         input_class_names_param.columns = [["Field"]]
 
         params = [input_deep_learning_model_param, input_class_names_param, input_lrs_network_param,
-                  input_point_features_param]
+                  input_point_features_param, input_raster_field_param]
 
         return params
 
@@ -71,5 +79,22 @@ class CreateLRSEventsFromStreetLevelImagery(object):
         return
 
     def execute(self, parameters, messages):
-        """The source code of the tool."""
+        """
+        * Create tmp workspace
+
+        For each point feature...
+            * Get the raster field data from the FC,
+            * Run the raster through Detect Objects Using Deep Learning
+            * Save the output of DOUDL to the tmp workspace
+            * Find the frequency of detected objects in the DOUDL output
+                * if the output contains a class name that does not appear in in_class_names then fail
+            * Take the highest occuring class in the DOUDLE output and...
+                * if no event FC exists with the name of the class, create it and append an event record
+                * append an event record to the event FC with the same name
+                * the location of the event record should be the same location as the original point feature
+
+        * Run Generate Events
+        * Delete tmp workspace
+        """
+
         return
