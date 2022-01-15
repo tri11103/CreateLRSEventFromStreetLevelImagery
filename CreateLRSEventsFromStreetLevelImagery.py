@@ -62,7 +62,7 @@ class CreateLRSEventsFromStreetLevelImagery(object):
         lr_license = arcpy.CheckExtension("LocationReferencing")
         ia_license = arcpy.CheckExtension("ImageAnalyst")
 
-        if lr_license is 'Available' and ia_license is 'Available':
+        if lr_license == 'Available' and ia_license == 'Available':
             return True
 
         return False
