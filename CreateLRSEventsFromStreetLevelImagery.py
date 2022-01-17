@@ -139,7 +139,7 @@ class CreateLRSEventsFromStreetLevelImagery(object):
         with arcpy.da.SearchCursor(out_table, ["DerivedMeasure"]) as cursor:
             # Only take the first row...
             for row in cursor:
-                measure = double(row[0])
+                measure = row[0]
                 break
 
         arcpy.management.Delete(out_fc)
