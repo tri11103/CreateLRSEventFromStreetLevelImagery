@@ -1,0 +1,93 @@
+{
+    "Framework": "arcgis.learn.models._inferencing",
+    "InferenceFunction": "[Functions]System\\DeepLearning\\ArcGISLearn\\ArcGISObjectDetector.py",
+    "ModelConfiguration": "_DynamicSSD",
+    "ModelType": "ObjectDetection",
+    "ExtractBands": [
+        0,
+        1,
+        2
+    ],
+    "backbone": "resnet34",
+    "Grids": [
+        1,
+        2
+    ],
+    "Zooms": [
+        1.0
+    ],
+    "Ratios": [
+        [
+            1.0,
+            1.0
+        ]
+    ],
+    "SSDVersion": 2,
+    "Classes": [
+        {
+            "Value": 0,
+            "Name": "OtherSigns",
+            "Color": [
+                158,
+                137,
+                12
+            ]
+        },
+        {
+            "Value": 1,
+            "Name": "SpeedLimit",
+            "Color": [
+                203,
+                55,
+                38
+            ]
+        },
+        {
+            "Value": 2,
+            "Name": "StopSign",
+            "Color": [
+                130,
+                132,
+                37
+            ]
+        }
+    ],
+    "ModelFormat": "NCHW",
+    "MinCellSize": {
+        "x": 1.0000000000000004,
+        "y": 1,
+        "spatialReference": {
+            "wkid": 102100,
+            "latestWkid": 3857
+        }
+    },
+    "MaxCellSize": {
+        "x": 1.0000000000000004,
+        "y": 1,
+        "spatialReference": {
+            "wkid": 102100,
+            "latestWkid": 3857
+        }
+    },
+    "SupportsVariableTileSize": false,
+    "ArcGISLearnVersion": "1.9.1",
+    "monitored_valid_loss": 26.861177444458008,
+    "ModelFile": "Deep Learning Model.pth",
+    "ImageHeight": 224,
+    "ImageWidth": 224,
+    "ImageSpaceUsed": "MAP_SPACE",
+    "LearningRate": "slice('1.7378e-04', '1.7378e-03', None)",
+    "ModelName": "SingleShotDetector",
+    "backend": "pytorch",
+    "ModelParameters": {
+        "backbone": "resnet34",
+        "backend": "pytorch"
+    },
+    "average_precision_score": {
+        "OtherSigns": 0.7146205477864811,
+        "SpeedLimit": 0.8804315540762175,
+        "StopSign": 0.8302884548902512
+    },
+    "resize_to": null,
+    "IsMultispectral": false
+}

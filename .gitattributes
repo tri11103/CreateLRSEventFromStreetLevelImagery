@@ -1,3 +1,4 @@
 *.zip filter=lfs diff=lfs merge=lfs -text
-*dlpk filter=lfs diff=lfs merge=lfs -text
 *.dlpk filter=lfs diff=lfs merge=lfs -text
+*.gdb filter=lfs diff=lfs merge=lfs -text
+*.pth filter=lfs diff=lfs merge=lfs -text

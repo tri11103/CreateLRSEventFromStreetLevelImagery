@@ -1,6 +1,7 @@
 import arcpy
 import os
 import datetime
+from ToolExceptions import *
 
 
 class CreateLRSEventsFromStreetLevelImagery(object):
@@ -148,16 +149,33 @@ class CreateLRSEventsFromStreetLevelImagery(object):
 
         return route_id, from_date, to_date, measure
 
+    def validate_parameters(self, parameters):
+        deep_learning_model = parameters[0] if type(parameters[0]) is str else parameters[0].valueAsText
+        class_names = parameters[1] if type(parameters[1]) is list else parameters[1].valueAsText.split(";")
+        lrs_network = parameters[2] if type(parameters[2]) is str else parameters[2].valueAsText
+        point_features = parameters[3] if type(parameters[3]) is str else parameters[3].valueAsText
+        raster_field = parameters[4] if type(parameters[4]) is str else parameters[4].valueAsText
+        tolerance = parameters[5] if (type(parameters[5]) is float or type(parameters[5]) is int) else parameters[5].value
 
-    def execute(self, parameters, messages):
-        deep_learning_model = parameters[0].valueAsText
-        class_names = parameters[1].valueAsText.split(";")
-        lrs_network = parameters[2].valueAsText
-        point_features = parameters[3].valueAsText
-        raster_field = parameters[4].valueAsText
-        tolerance = parameters[5].value
+        if not os.path.exists(deep_learning_model):
+            raise FileNotFoundError()
+
+        field_names_in_point_features = [x.name for x in arcpy.ListFields(point_features)]
+        if raster_field not in field_names_in_point_features:
+            raise InputRasterFieldNotFound(raster_field=raster_field, feature_class=point_features)
 
         lrs_dataset = self.get_feature_dataset(lrs_network)
+        if not lrs_dataset:
+            raise InputNetworkIsNotLRSNetwork(lrs_network=lrs_network)
+
+        if arcpy.Describe(point_features).shapeType != "POINT":
+            raise InputPointFeaturesAreNotPoints(point_features=point_features)
+
+        return deep_learning_model, class_names, lrs_network, point_features, raster_field, tolerance
+
+
+    def execute(self, parameters, messages):
+        deep_learning_model, class_names, lrs_network, point_features, raster_field, tolerance = self.validate_parameters(parameters)
 
         self.try_create_new_point_events_based_on_in_class_names(lrs_network, class_names)
 
@@ -176,7 +194,7 @@ class CreateLRSEventsFromStreetLevelImagery(object):
                 with arcpy.da.SearchCursor(out_fc, ["Class"]) as detected_objects_cursor:
                     for detected_objects_row in detected_objects_cursor:
                         if detected_objects_row[0] not in class_names:
-                            raise arcpy.ExecuteError("{} not found in in_class_names".format(detected_objects_row[0]))
+                            raise ClassNotFoundInInputClassNames(detected_objects_row[0])
 
                         weighted_dictionary[detected_objects_row[0]] += 1
 

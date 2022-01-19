@@ -1,0 +1,5 @@
+﻿arcpy.ListFields("PointWithImagery")
+arcpy.ListFields("C:\\Users\\tri11103\\PycharmProjects\\CreateLRSEventsFromStreetLevelImagery\\Tests\\Test Data\\Test Data.gdb\\PointWithImagery")
+arcpy.da.ListFields("C:\\Users\\tri11103\\PycharmProjects\\CreateLRSEventsFromStreetLevelImagery\\Tests\\Test Data\\Test Data.gdb\\PointWithImagery")
+arcpy.ListFields("C:\\Users\\tri11103\\PycharmProjects\\CreateLRSEventsFromStreetLevelImagery\\Tests\\Test Data\\Test Data.gdb\\PointWithImagery")[0].name
+arcpy.da.Describe("C:\\Users\\tri11103\\PycharmProjects\\CreateLRSEventsFromStreetLevelImagery\\Tests\\Test Data\\Test Data.gdb\\PointWithImagery")
